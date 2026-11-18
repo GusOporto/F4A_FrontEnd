@@ -1,15 +1,19 @@
+import { Link } from 'react-router-dom';
 import Image from '../atoms/Image';
 import Text from '../atoms/Text';
-import Boton from '../atoms/Boton'
+import Boton from '../atoms/Boton';
+import '../../styles/organisms/ProductCard.css';
 
-function ProductCards({producto, onAddToCart}){
-    const {nombre, imagen, categoria, precio } = producto;
-    const formatoPrecio  = new Intl.NumberFormat("es-CL",{
-        style: "currency",
-        currency: "CLP",
+function ProductCards({ producto, isLoggedIn = false, onAddToCart }) {
+    const { nombre, imagen, categoria, precio, stock } = producto;
+    const formatoPrecio = new Intl.NumberFormat('es-CL', {
+        style: 'currency',
+        currency: 'CLP',
         maximumFractionDigits: 0,
     }).format(precio);
-    return(
+    const agotado = Number(stock) === 0;
+
+    return (
         <article className="tarjeta-producto">
             <Image
                 src={imagen}
@@ -28,14 +32,23 @@ function ProductCards({producto, onAddToCart}){
                 {formatoPrecio}
             </Text>
 
-            <Boton
-                className="boton-carrito"
-                onClick={() => onAddToCart(producto)}
-            >
-                Agregar al carrito
-            </Boton>
+            {isLoggedIn ? (
+                <Boton
+                    className="boton-carrito"
+                    onClick={() => onAddToCart?.(producto)}
+                    disabled={agotado}
+                >
+                    {agotado ? 'Agotado' : 'Agregar al carrito'}
+                </Boton>
+            ) : (
+                <div className="product-card-gate" role="note">
+                    <span>Inicia sesión para comprar</span>
+                    <Link to="/registro" className="product-card-gate-link">
+                        Crear cuenta
+                    </Link>
+                </div>
+            )}
         </article>
-        
     );
 }
 

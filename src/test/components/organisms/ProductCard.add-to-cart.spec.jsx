@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ProductCard from '../../../components/organisms/ProductCard';
 
-describe('ProductCard organism: agregar al carrito', () => {
+describe('ProductCard organism: agregar al carrito con sesión iniciada', () => {
   it('entrega el producto al callback al pulsar el botón', () => {
     const producto = {
       id: 101,

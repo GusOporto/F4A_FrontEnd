@@ -5,6 +5,7 @@ import '../../styles/organisms/Header.css';
 import SearchBar from '../molecules/SearchBar';
 import NavElement from '../molecules/NavElement';
 import AuthDropdown from '../molecules/AuthDropdown';
+import { cartService } from '../../services/cartService';
 
 export const Header = ({ isRegistered = false, currentUser = null }) => {
   const { pathname } = useLocation();
@@ -15,6 +16,10 @@ export const Header = ({ isRegistered = false, currentUser = null }) => {
 
   const toggleAuth = () => {
     setIsAuthOpen((prev) => !prev);
+  };
+
+  const handleSearch = (query) => {
+    navigate(`/buscar?q=${encodeURIComponent(query.trim())}`);
   };
 
   const accountLabel = !currentUser
@@ -40,20 +45,10 @@ export const Header = ({ isRegistered = false, currentUser = null }) => {
   // 4. Leer y calcular la cantidad total de unidades en el carrito desde localStorage
   useEffect(() => {
     const updateCartCount = () => {
-      const savedCart = localStorage.getItem('f4a_cart');
-      if (savedCart) {
-        try {
-          const cart = JSON.parse(savedCart);
-          // Suma la cantidad total de unidades agregadas
-          const total = cart.reduce((acc, item) => acc + (item.cantidad || 1), 0);
-          setCartCount(total);
-        } catch (e) {
-          console.error('Error al parsear el carrito:', e);
-          setCartCount(0);
-        }
-      } else {
-        setCartCount(0);
-      }
+      // cartService valida que sea un arreglo y tolera datos corruptos.
+      const cart = cartService.getItems();
+      const total = cart.reduce((acc, item) => acc + (Number(item.cantidad) || 1), 0);
+      setCartCount(total);
     };
 
     updateCartCount();
@@ -80,7 +75,7 @@ export const Header = ({ isRegistered = false, currentUser = null }) => {
           <Logo />
         </div>
 
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
 
         <div className="header-auth" ref={authRef} style={{ position: 'relative' }}>
           <button

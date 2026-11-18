@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import './App.css';
 import './styles/pages/Pages.css';
 import MainLayout from './components/templates/MainLayout.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -20,6 +19,7 @@ import RandomKeysPage from './pages/RandomKeysPage.jsx';
 import OffersPage from './pages/OffersPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ProductDetailPage from './pages/ProductDetailPage.jsx';
+import SearchPage from './pages/SearchPage.jsx';
 import BlogPage from './pages/BlogPage.jsx';
 import BlogDetailPage from './pages/BlogDetailPage.jsx';
 import AdminPage from './pages/AdminPage.jsx';
@@ -47,6 +47,7 @@ function App() {
 
         {/* Pasamos isLoggedIn a las páginas de productos para habilitar/bloquear el botón de compra */}
         <Route path="gaming" element={<GamingPage isLoggedIn={isRegistered} />} />
+        <Route path="buscar" element={<SearchPage isLoggedIn={isRegistered} />} />
         <Route path="producto/:id" element={<ProductDetailPage isLoggedIn={isRegistered} />} />
         <Route path="software" element={<SoftwarePage isLoggedIn={isRegistered} />} />
         <Route path="carrito" element={<CartPage isLoggedIn={isRegistered} />} />

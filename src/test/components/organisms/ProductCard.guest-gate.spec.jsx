@@ -1,9 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ProductCard from '../../../components/organisms/ProductCard';
 
-describe('ProductCard organism: acción de compra', () => {
-  it('muestra la acción y envía el producto al callback', () => {
+describe('ProductCard organism: acceso de invitados', () => {
+  it('oculta la compra, ofrece registro y no llama al callback sin sesión', () => {
     const producto = {
       id: 101,
       nombre: 'Minecraft',
@@ -14,10 +14,15 @@ describe('ProductCard organism: acción de compra', () => {
     };
 
     const onAddToCart = jasmine.createSpy('onAddToCart');
-    render(<MemoryRouter><ProductCard producto={producto} onAddToCart={onAddToCart} /></MemoryRouter>);
+    render(
+      <MemoryRouter>
+        <ProductCard producto={producto} isLoggedIn={false} onAddToCart={onAddToCart} />
+      </MemoryRouter>
+    );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Agregar al carrito' }));
-
-    expect(onAddToCart).toHaveBeenCalledWith(producto);
+    expect(screen.queryByRole('button', { name: 'Agregar al carrito' })).toBeNull();
+    expect(screen.getByText('Inicia sesión para comprar')).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Crear cuenta' }).getAttribute('href')).toBe('/registro');
+    expect(onAddToCart).not.toHaveBeenCalled();
   });
 });
