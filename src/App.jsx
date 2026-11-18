@@ -56,7 +56,7 @@ function App() {
         <Route path="registro" element={<RegisterPage />} />
         <Route path="contacto" element={<ContactPage />} />
         <Route path="categorias" element={<CategoriesPage />} />
-        <Route path="categorias/:id" element={<CategoryDetailPage />} />
+        <Route path="categorias/:id" element={<CategoryDetailPage isLoggedIn={isRegistered} />} />
         <Route path="subscripciones" element={<SubscriptionPage isLoggedIn={isRegistered} />} />
         <Route path="regalos" element={<InfoPage title="Regalos digitales" description="Pronto podrás explorar opciones de regalo en F4A." />} />
         <Route path="randomkey" element={<RandomKeysPage isLoggedIn={isRegistered} />} />

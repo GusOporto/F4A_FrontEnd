@@ -96,7 +96,7 @@ Las claves de almacenamiento usadas por la aplicación incluyen `f4a_database`, 
 
 ## Pruebas
 
-Las pruebas se ejecutan con **Jasmine + Karma** en Chromium Headless y React Testing Library. La suite contiene **72 casos** repartidos en 19 archivos: 48 de servicios de datos (`dbService`), 12 de componentes (`Button`, `SearchBar`, `ProductCard`, `MainLayout`), 9 del panel de administración, 2 de catálogo de categorías y 1 de `ContactPage`. La cobertura aproximada es de 70 % de sentencias y 48 % de ramas. El resumen se genera en `coverage/` al ejecutar `npm test`.
+Las pruebas se ejecutan con **Jasmine + Karma** en Chromium Headless y React Testing Library. La suite contiene **75 casos** repartidos en 21 archivos: 48 de servicios de datos (`dbService`), 14 de componentes (`Button`, `SearchBar`, `ProductCard`, `MainLayout`), 9 del panel de administración, 3 de catálogo (categorías y ofertas) y 1 de `ContactPage`. La cobertura aproximada es de 70 % de sentencias y 48 % de ramas. El resumen se genera en `coverage/` al ejecutar `npm test`.
 
 ```bash
 npm test

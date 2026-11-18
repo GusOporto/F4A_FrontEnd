@@ -41,7 +41,8 @@ describe('Catálogo dinámico de categorías', () => {
 
     expect(screen.getByRole('heading', { name: 'Aventura' })).toBeTruthy();
     expect(screen.getByRole('heading', { name: 'Celeste' })).toBeTruthy();
-    expect(screen.getByRole('link', { name: /Celeste.*4\.500/i }).getAttribute('href'))
+    expect(screen.getByText('$4.500')).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Celeste' }).getAttribute('href'))
       .toBe(`/producto/${productoService.getAll().find((product) => product.nombre === 'Celeste').id}`);
   });
 });
